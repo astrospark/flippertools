@@ -8,6 +8,7 @@ from flipperfile import FlipperFile
 from flipperfileformatter import FlipperFileFormatter
 from jsonformatter import JSONFormatter
 from pythoncodeformatter import PythonCodeFormatter
+from spikewordcodeformatter import SpikeWordCodeFormatter
 
 _VERSION = '1.0'
 
@@ -58,6 +59,8 @@ def main():
         else:
             if flipper_file.type == 'python':
                 outfile.write(PythonCodeFormatter.format(flipper_file.project))
+            elif flipper_file.type == 'word-blocks':
+                outfile.write(SpikeWordCodeFormatter.format(flipper_file.project))
             else:
                 outfile.write(JSONFormatter.format(flipper_file.project))
 
