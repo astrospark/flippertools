@@ -59,10 +59,8 @@ def main():
         else:
             if flipper_file.type == 'python':
                 outfile.write(PythonCodeFormatter.format(flipper_file.project))
-            elif flipper_file.type == 'word-blocks':
-                outfile.write(SpikeWordCodeFormatter.format(flipper_file.project))
             else:
-                outfile.write(JSONFormatter.format(flipper_file.project))
+                outfile.write(SpikeWordCodeFormatter.format(flipper_file.project))
 
 
 if __name__ == '__main__':
