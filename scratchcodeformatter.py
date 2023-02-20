@@ -15,7 +15,7 @@ class ScratchCodeFormatter:
     def _format_blocks(blocks, output):
         for block_id in blocks:
             block = blocks[block_id]
-            if block['topLevel']:
+            if 'topLevel' in block and block['topLevel']:
                 stack_text = ScratchCodeFormatter._get_stack_text(blocks, block_id)
                 if stack_text:
                     output.write(stack_text)
@@ -86,7 +86,14 @@ class ScratchCodeFormatter:
                 opcode = block['opcode']
                 format_string = ScratchCodeFormatter._get_string(opcode)
                 if format_string != opcode:
-                    output.write(format_string.format(**parameters))
+                    try:
+                        output.write(format_string.format(**parameters))
+                    except KeyError:
+                        tokens = [format_string]
+                        for key in parameters:
+                            value = parameters[key]
+                            tokens.append(f'{key}={value}')
+                        output.write(' '.join(tokens))
                 else:
                     tokens = [opcode]
                     for key in parameters:
