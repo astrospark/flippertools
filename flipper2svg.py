@@ -9,8 +9,8 @@ _VERSION = '1.0'
 def main():
     parser = argparse.ArgumentParser(
         description='Converts LEGO EV3 Classroom and SPIKE project files to SVG.',
-        epilog='LEGO, EV3, and SPIKE are trademarks of the LEGO Group. This software is not authorized or endorsed '
-               'by the LEGO Group.',
+        epilog='LEGO and SPIKE are trademarks of the LEGO Group. This software is not authorized or endorsed by the '
+               'LEGO Group.',
         add_help=False,
     )
 
