@@ -8,7 +8,7 @@ from flipperfile import FlipperFile
 from flipperfileformatter import FlipperFileFormatter
 from jsonformatter import JSONFormatter
 from pythoncodeformatter import PythonCodeFormatter
-from spikewordcodeformatter import SpikeWordCodeFormatter
+from scratchcodeformatter import ScratchCodeFormatter
 
 _VERSION = '1.0'
 
@@ -60,7 +60,7 @@ def main():
             if flipper_file.type == 'python':
                 outfile.write(PythonCodeFormatter.format(flipper_file.project))
             else:
-                outfile.write(SpikeWordCodeFormatter.format(flipper_file.project))
+                outfile.write(ScratchCodeFormatter.format(flipper_file.project))
 
 
 if __name__ == '__main__':

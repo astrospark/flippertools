@@ -1,1 +1,1 @@
-__all__ = ['flipperfile', 'flipperfileformatter', 'jsonformatter', 'pythoncodeformatter']
+__all__ = ['flipperfile', 'flipperfileformatter', 'jsonformatter', 'pythoncodeformatter', 'scratchcodeformatter']

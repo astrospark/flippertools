@@ -2,13 +2,13 @@ import io
 import json
 
 
-class SpikeWordCodeFormatter:
+class ScratchCodeFormatter:
     @staticmethod
     def format(json_object):
         with io.StringIO() as output:
             for target in json_object['targets']:
                 if not target['isStage']:
-                    SpikeWordCodeFormatter._format_blocks(target['blocks'], output)
+                    ScratchCodeFormatter._format_blocks(target['blocks'], output)
             return output.getvalue()
 
     @staticmethod
@@ -16,7 +16,7 @@ class SpikeWordCodeFormatter:
         for block_id in blocks:
             block = blocks[block_id]
             if block['topLevel']:
-                stack_text = SpikeWordCodeFormatter._get_stack_text(blocks, block_id)
+                stack_text = ScratchCodeFormatter._get_stack_text(blocks, block_id)
                 if stack_text:
                     output.write(stack_text)
                     if stack_text[-0] != '\n':
@@ -28,9 +28,9 @@ class SpikeWordCodeFormatter:
         with io.StringIO() as output:
             while True:
                 block = blocks[block_id]
-                block_text = SpikeWordCodeFormatter._get_block_text(blocks, block_id)
+                block_text = ScratchCodeFormatter._get_block_text(blocks, block_id)
                 if block_text:
-                    SpikeWordCodeFormatter._write_indent(output, indent)
+                    ScratchCodeFormatter._write_indent(output, indent)
                     output.write(block_text)
                     if block_text[-1] != '\n':
                         output.write('\n')
@@ -51,9 +51,9 @@ class SpikeWordCodeFormatter:
         with io.StringIO() as output:
             if 'mutation' in block:
                 if block['opcode'] == 'procedures_call':
-                    output.write(SpikeWordCodeFormatter._get_string('procedures_call'))
+                    output.write(ScratchCodeFormatter._get_string('procedures_call'))
 
-                output.write(SpikeWordCodeFormatter._get_mutation(blocks, block['mutation'], inputs))
+                output.write(ScratchCodeFormatter._get_mutation(blocks, block['mutation'], inputs))
             else:
                 parameters = dict()
 
@@ -81,10 +81,10 @@ class SpikeWordCodeFormatter:
                     if type(value) is list:
                         parameters[input] = value[1]
                     else:
-                        parameters[input] = SpikeWordCodeFormatter._get_block_text(blocks, value, get_shadow=True)
+                        parameters[input] = ScratchCodeFormatter._get_block_text(blocks, value, get_shadow=True)
 
                 opcode = block['opcode']
-                format_string = SpikeWordCodeFormatter._get_string(opcode)
+                format_string = ScratchCodeFormatter._get_string(opcode)
                 if format_string != opcode:
                     output.write(format_string.format(**parameters))
                 else:
@@ -96,26 +96,26 @@ class SpikeWordCodeFormatter:
 
                 if substack_block_id:
                     output.write('\n')
-                    output.write(SpikeWordCodeFormatter._get_stack_text(blocks, substack_block_id, indent + 1))
+                    output.write(ScratchCodeFormatter._get_stack_text(blocks, substack_block_id, indent + 1))
 
                 if substack2_block_id:
-                    SpikeWordCodeFormatter._write_indent(output, indent)
-                    output.write(SpikeWordCodeFormatter._get_string('control_else'))
+                    ScratchCodeFormatter._write_indent(output, indent)
+                    output.write(ScratchCodeFormatter._get_string('control_else'))
                     output.write('\n')
-                    output.write(SpikeWordCodeFormatter._get_stack_text(blocks, substack2_block_id, indent + 1))
+                    output.write(ScratchCodeFormatter._get_stack_text(blocks, substack2_block_id, indent + 1))
 
             return output.getvalue()
 
     @staticmethod
     def _get_mutation(blocks, mutation, inputs):
         tokens = []
-        for argument_id in SpikeWordCodeFormatter._parse_argument_ids(mutation['argumentids']):
+        for argument_id in ScratchCodeFormatter._parse_argument_ids(mutation['argumentids']):
             values = inputs[argument_id]
             value = values[1]
             if type(value) is list:
                 tokens.append(value[1])
             else:
-                tokens.append(SpikeWordCodeFormatter._get_block_text(blocks, values[1], get_shadow=True))
+                tokens.append(ScratchCodeFormatter._get_block_text(blocks, values[1], get_shadow=True))
 
         mutation_string = mutation['proccode']
         mutation_string = mutation_string.replace('%s', '{}')
