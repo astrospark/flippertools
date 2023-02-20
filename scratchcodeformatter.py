@@ -28,7 +28,7 @@ class ScratchCodeFormatter:
         with io.StringIO() as output:
             while True:
                 block = blocks[block_id]
-                block_text = ScratchCodeFormatter._get_block_text(blocks, block_id)
+                block_text = ScratchCodeFormatter._get_block_text(blocks, block_id, indent=indent)
                 if block_text:
                     ScratchCodeFormatter._write_indent(output, indent)
                     output.write(block_text)
