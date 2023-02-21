@@ -117,15 +117,27 @@ class ScratchCodeFormatter:
     def _get_mutation(blocks, mutation, inputs):
         tokens = []
         for argument_id in ScratchCodeFormatter._parse_argument_ids(mutation['argumentids']):
-            values = inputs[argument_id]
-            value = values[1]
-            if type(value) is list:
-                tokens.append(value[1])
-            else:
-                tokens.append(ScratchCodeFormatter._get_block_text(blocks, values[1], get_shadow=True))
+            if argument_id in inputs:
+                values = inputs[argument_id]
+                value = values[1]
+                if type(value) is list:
+                    tokens.append(value[1])
+                else:
+                    if value:
+                        tokens.append(ScratchCodeFormatter._get_block_text(blocks, value, get_shadow=True))
+                    else:  # handle missing boolean argument in my block
+                        tokens.append(' ')
+            else:  # handle missing boolean argument in my block
+                tokens.append(' ')
+                pass
+
+        for i in range(len(tokens)):
+            if tokens[i] is None or not tokens[i]:  # handle missing number or text argument in my block
+                tokens[i] = ' '
 
         mutation_string = mutation['proccode']
         mutation_string = mutation_string.replace('%s', '{}')
+        mutation_string = mutation_string.replace('%b', '{}')
         mutation_string = mutation_string.format(*tokens)
         return mutation_string
 
