@@ -154,18 +154,22 @@ class ScratchCodeFormatter:
 
         return argument_id_list
 
+    _language = None
+
     @staticmethod
     def _get_string(input: str) -> str:
         if type(input) is not str:
             return input
 
-        with open('strings.json', 'rt') as strings_json:
-            languages = json.load(strings_json)
-            language = languages['en-us']
-            if input in language:
-                return language[input]
-            else:
-                return input
+        if ScratchCodeFormatter._language is None:
+            with open('strings.json', 'rt') as strings_json:
+                languages = json.load(strings_json)
+                ScratchCodeFormatter._language = languages['en-us']
+
+        if input in ScratchCodeFormatter._language:
+            return ScratchCodeFormatter._language[input]
+        else:
+            return input
 
     @staticmethod
     def _write_indent(output, indent: int = 0):
