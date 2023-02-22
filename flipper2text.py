@@ -7,7 +7,6 @@ from typing import IO
 
 from flipperfile import FlipperFile
 from flipperfileformatter import FlipperFileFormatter
-from jsonformatter import JSONFormatter
 from pythoncodeformatter import PythonCodeFormatter
 from scratchcodeformatter import ScratchCodeFormatter
 
