@@ -16,9 +16,9 @@ _VERSION = '1.0'
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Shows the differences between two LEGO EV3 Classroom or SPIKE project files.',
-        epilog='LEGO and SPIKE are trademarks of the LEGO Group. This software is not authorized or endorsed by the '
-               'LEGO Group.',
+        description='Shows the differences between two LEGO MINDSTORMS EV3 Classroom or SPIKE project files.',
+        epilog='LEGO, MINDSTORMS, and SPIKE are trademarks of the LEGO Group. This software is not authorized or '
+               'endorsed by the LEGO Group.',
         add_help=False,
     )
 

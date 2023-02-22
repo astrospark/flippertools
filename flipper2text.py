@@ -28,9 +28,9 @@ def open_file_or_stdout(file: str | bytes | PathLike[str] | PathLike[bytes] | in
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Converts LEGO EV3 Classroom and SPIKE project files to text.',
-        epilog='LEGO and SPIKE are trademarks of the LEGO Group. This software is not authorized or endorsed by the '
-               'LEGO Group.',
+        description='Converts LEGO MINDSTORMS EV3 Classroom and SPIKE project files to text.',
+        epilog='LEGO, MINDSTORMS, and SPIKE are trademarks of the LEGO Group. This software is not authorized or '
+               'endorsed by the LEGO Group.',
         add_help=False,
     )
 
