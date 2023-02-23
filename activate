@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+SCRIPT_PATH="${0:A:h}"
+SCRIPT_NAME="${0:A:t}"
+ACTIVATE_SCRIPT="${SCRIPT_PATH}/venv/bin/activate"
+
+if [[ -f "${ACTIVATE_SCRIPT}" && -r "${ACTIVATE_SCRIPT}" ]]; then
+  source "${ACTIVATE_SCRIPT}"
+else
+  if ! /usr/bin/env python -m venv "${SCRIPT_PATH}/venv"; then
+    echo "${SCRIPT_NAME}": Failed to create virtual environment >&2
+    exit 2
+  fi
+
+  source "${ACTIVATE_SCRIPT}"
+
+  if ! pip install -r "${SCRIPT_PATH}/requirements.txt"; then
+    echo "${SCRIPT_NAME}": Failed to install required packages >&2
+    deactivate
+    rm "${ACTIVATE_SCRIPT}"
+    exit 3
+  fi
+fi

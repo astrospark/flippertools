@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+SCRIPT_PATH="${0:A:h}"
+source "${SCRIPT_PATH}/activate"
+"${SCRIPT_PATH}/flipper2svg.py" "$@"; RESULT=$?
+deactivate
+exit "${RESULT}"
