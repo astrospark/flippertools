@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python
 import argparse
 import difflib
 from datetime import datetime
