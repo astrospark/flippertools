@@ -1,5 +1,6 @@
 import io
 import json
+import os
 
 
 class ScratchCodeFormatter:
@@ -162,7 +163,9 @@ class ScratchCodeFormatter:
             return input
 
         if ScratchCodeFormatter._language is None:
-            with open('strings.json', 'rt') as strings_json:
+            script_dir = os.path.abspath(os.path.dirname(__file__))
+            strings_json_path = os.path.join(script_dir, 'strings.json')
+            with open(strings_json_path, 'rt') as strings_json:
                 languages = json.load(strings_json)
                 ScratchCodeFormatter._language = languages['en-us']
 
