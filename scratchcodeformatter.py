@@ -26,7 +26,6 @@ class ScratchCodeFormatter:
                     if stack_text[-0] != '\n':
                         output.write('\n')
 
-
     @staticmethod
     def _get_stack_text(target: dict, block_id: str, indent: int = 0) -> str:
         blocks = target['blocks']
@@ -70,7 +69,7 @@ class ScratchCodeFormatter:
                 for field in fields:
                     values = fields[field]
                     value = values[0]
-                    parameters[field] = value
+                    parameters[field] = ScratchCodeFormatter._get_field_value(block, field, value)
 
                 for input in inputs:
                     if input == 'SUBSTACK':
@@ -154,6 +153,17 @@ class ScratchCodeFormatter:
         mutation_string = mutation_string.replace('%b', '{}')
         mutation_string = mutation_string.format(*tokens)
         return mutation_string
+
+    @staticmethod
+    def _get_field_value(block: dict, field: str, value: str) -> str:
+        if field == 'outputPort':
+            ev3_output_ports = {'1': 'A',
+                                '2': 'B',
+                                '3': 'C',
+                                '4': 'D'}
+            return ev3_output_ports[value] if value in ev3_output_ports else value
+        else:
+            return value
 
     @staticmethod
     def _parse_argument_ids(argument_ids: str) -> list:
