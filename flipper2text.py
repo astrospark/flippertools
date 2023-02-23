@@ -15,7 +15,7 @@ _VERSION = '1.0'
 
 def open_file_or_stdout(file: str | bytes | PathLike[str] | PathLike[bytes] | int,
                         mode: str = 'w',
-                        encoding: str | None = None) -> IO:
+                        encoding: str | None = 'utf-8') -> IO:
     @contextlib.contextmanager
     def stdout_manager():
         sys.stdout.reconfigure(encoding=encoding, newline='\n')
@@ -52,7 +52,7 @@ def main():
     else:
         write_mode = 'xt'
 
-    with open_file_or_stdout(args.outfile, write_mode, encoding='utf-8') as outfile:
+    with open_file_or_stdout(args.outfile, write_mode) as outfile:
         flipper_file = FlipperFile(args.infile)
 
         if args.dump:
