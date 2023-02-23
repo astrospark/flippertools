@@ -6,7 +6,16 @@ ACTIVATE_SCRIPT="${SCRIPT_PATH}/venv/bin/activate"
 if [[ -f "${ACTIVATE_SCRIPT}" && -r "${ACTIVATE_SCRIPT}" ]]; then
   source "${ACTIVATE_SCRIPT}"
 else
-  if ! /usr/bin/env python -m venv "${SCRIPT_PATH}/venv"; then
+  if where python3 >nul 2>&1; then
+    PYTHON=python3
+  elif where python >nul 2>&1; then
+    PYTHON=python
+  else
+    echo "${SCRIPT_NAME}": Failed to locate Python >&2
+    exit 1
+  fi
+
+  if ! "${PYTHON}" -m venv "${SCRIPT_PATH}/venv"; then
     echo "${SCRIPT_NAME}": Failed to create virtual environment >&2
     exit 2
   fi
