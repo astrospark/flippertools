@@ -18,6 +18,7 @@ def open_file_or_stdout(file: str | bytes | PathLike[str] | PathLike[bytes] | in
                         encoding: str | None = None) -> IO:
     @contextlib.contextmanager
     def stdout_manager():
+        sys.stdout.reconfigure(encoding=encoding, newline='\n')
         yield sys.stdout
 
     if not file or file == '-':
