@@ -1,2 +1,0 @@
-[diff "flipper"]
-	textconv = python flipper2text.py
