@@ -68,8 +68,7 @@ class ScratchCodeFormatter:
                 fields = block['fields']
                 for field in fields:
                     values = fields[field]
-                    value = values[0]
-                    parameters[field] = ScratchCodeFormatter._get_field_value(block, field, value)
+                    parameters[field] = values[0]
 
                 for input in inputs:
                     if input == 'SUBSTACK':
@@ -88,6 +87,9 @@ class ScratchCodeFormatter:
                         parameters[input] = value[1]
                     else:
                         parameters[input] = ScratchCodeFormatter._get_block_text(target, value, get_shadow=True)
+
+                for parameter in parameters:
+                    parameters[parameter] = ScratchCodeFormatter._get_parameter_value(block, parameter, parameters[parameter])
 
                 opcode = block['opcode']
                 format_string = ScratchCodeFormatter._get_string(opcode)
@@ -154,16 +156,46 @@ class ScratchCodeFormatter:
         mutation_string = mutation_string.format(*tokens)
         return mutation_string
 
+    _parameter_mappings = None
+
     @staticmethod
-    def _get_field_value(block: dict, field: str, value: str) -> str:
-        if field == 'outputPort':
-            ev3_output_ports = {'1': 'A',
-                                '2': 'B',
-                                '3': 'C',
-                                '4': 'D'}
-            return ev3_output_ports[value] if value in ev3_output_ports else value
-        else:
-            return value
+    def _get_parameter_value(block: dict, parameter: str, value: str) -> str:
+        opcode = block['opcode']
+
+        if ScratchCodeFormatter._parameter_mappings is None:
+            script_dir = os.path.abspath(os.path.dirname(__file__))
+            mappings_json_path = os.path.join(script_dir, 'mappings.json')
+            with open(mappings_json_path, 'rt') as mappings_json:
+                languages = json.load(mappings_json)
+                ScratchCodeFormatter._parameter_mappings = languages['en-us']
+
+        for mapping in ScratchCodeFormatter._parameter_mappings:
+            is_match = False
+            if 'opcode' in mapping:
+                mapping_opcode = mapping['opcode']
+                if type(mapping_opcode) is list:
+                    if opcode in mapping_opcode:
+                        is_match = True
+                else:
+                    if mapping_opcode == opcode:
+                        is_match = True
+
+            if 'opcode_startswith' in mapping:
+                opcode_startswith = mapping['opcode_startswith']
+                if opcode.startswith(opcode_startswith):
+                    is_match = True
+
+            if not is_match:
+                continue
+
+            parameters = mapping['parameters']
+            for mapping_parameter in parameters:
+                if parameter in mapping_parameter:
+                    mapping_values = mapping_parameter[parameter]
+                    if value in mapping_values:
+                        return mapping_values[value]
+
+        return value
 
     @staticmethod
     def _parse_argument_ids(argument_ids: str) -> list:
@@ -178,7 +210,7 @@ class ScratchCodeFormatter:
 
         return argument_id_list
 
-    _language = None
+    _strings = None
 
     @staticmethod
     def _format_comments(target: dict, output: io.StringIO):
@@ -204,15 +236,15 @@ class ScratchCodeFormatter:
         if type(input) is not str:
             return input
 
-        if ScratchCodeFormatter._language is None:
+        if ScratchCodeFormatter._strings is None:
             script_dir = os.path.abspath(os.path.dirname(__file__))
             strings_json_path = os.path.join(script_dir, 'strings.json')
             with open(strings_json_path, 'rt') as strings_json:
                 languages = json.load(strings_json)
-                ScratchCodeFormatter._language = languages['en-us']
+                ScratchCodeFormatter._strings = languages['en-us']
 
-        if input in ScratchCodeFormatter._language:
-            return ScratchCodeFormatter._language[input]
+        if input in ScratchCodeFormatter._strings:
+            return ScratchCodeFormatter._strings[input]
         else:
             return input
 

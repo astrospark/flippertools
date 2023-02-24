@@ -1,0 +1,200 @@
+{
+  "en-us": [
+    {
+      "opcode_startswith": "ev3",
+      "parameters": [
+        {
+          "outputPort": {
+            "1": "A",
+            "2": "B",
+            "3": "C",
+            "4": "D"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3events_whenEV3BrickButtonPressed",
+        "ev3events_whenEV3TouchSensorPressed",
+        "ev3sensors_isEV3BrickButtonPressed",
+        "ev3sensors_waitEV3BrickButton",
+        "ev3sensors_waitEV3TouchSensorTouch"
+      ],
+      "parameters": [
+        {
+          "BUTTON": {
+            "0": "no",
+            "1": "left",
+            "2": "center",
+            "3": "right",
+            "4": "up",
+            "5": "down"
+          }
+        },
+        {
+          "EVENT": {
+            "0": "released",
+            "1": "pressed"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3events_whenEV3ColorSensorColor",
+        "ev3sensors_waitEV3ColorSensorColor"
+      ],
+      "parameters": [
+        {
+          "EVENT": {
+            "-1": "changed",
+            "0": "no color",
+            "1": "black",
+            "2": "blue",
+            "3": "green",
+            "4": "yellow",
+            "5": "red",
+            "6": "white",
+            "7": "brown"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3events_whenEV3GyroSensorAngle",
+        "ev3events_whenEV3InfraredSensorProximity",
+        "ev3events_whenEV3UltrasonicSensorDistance",
+        "ev3sensors_waitEV3GyroSensorAngle",
+        "ev3sensors_waitEV3InfraredSensorProximity",
+        "ev3sensors_waitEV3UltrasonicSensorDistance"
+      ],
+      "parameters": [
+        {
+          "EVENT": {
+            "-1": "changed more than",
+            "0": "exactly (=)",
+            "2": "greater than (>)",
+            "4": "less than (<)"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3events_whenEV3InfraredBeaconButtonPressed",
+        "ev3sensors_waitEV3InfraredBeaconButton"
+      ],
+      "parameters": [
+        {
+          "EVENT": {
+            "1,5,6,10": "top left button pressed",
+            "2,7,8,10": "bottom left button pressed",
+            "0,3,4,9,11": "no left buttons pressed",
+            "3,5,7,11": "top right button pressed",
+            "4,6,8,11": "bottom right button pressed",
+            "0,1,2,9,10": "no right buttons pressed",
+            "9": "beacon active"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": "ev3display_displayTextWithFont",
+      "parameters": [
+        {
+          "OPTION": {
+            "0,0": "normal black",
+            "1,0": "bold black",
+            "2,0": "large black",
+            "0,1": "normal white",
+            "1,1": "bold white",
+            "2,1": "large white"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": "ev3display_setStatusLight",
+      "parameters": [
+        {
+          "OPTION": {
+            "0": "off",
+            "1": "green",
+            "2": "red",
+            "3": "orange",
+            "4": "green pulse",
+            "5": "red pulse",
+            "6": "orange pulse"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3motor_motorSetStopAction",
+        "ev3move_moveSetStopAction"
+      ],
+      "parameters": [
+        {
+          "OPTION": {
+            "0": "float",
+            "1": "hold position"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": [
+        "ev3sensors_isEV3ColorSensorAmbient",
+        "ev3sensors_isEV3ColorSensorReflected",
+        "ev3sensors_isEV3GyroAngle",
+        "ev3sensors_isEV3InfraredBeaconActiveAnd",
+        "ev3sensors_isEV3InfraredSensorProximity",
+        "ev3sensors_isEV3UltrasonicSensorDistance"
+      ],
+      "parameters": [
+        {
+          "COMPARATOR": {
+            "0": "=",
+            "2": ">",
+            "4": "<"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": "ev3sensors_isEV3ColorSensorColor",
+      "parameters": [
+        {
+          "VALUE": {
+            "0": "no color",
+            "1": "black",
+            "2": "blue",
+            "3": "green",
+            "4": "yellow",
+            "5": "red",
+            "6": "white",
+            "7": "brown"
+          }
+        }
+      ]
+    },
+    {
+      "opcode": "ev3sensors_isEV3InfraredBeaconButtonPressed",
+      "parameters": [
+        {
+          "BUTTON": {
+            "0": "no buttons",
+            "1,5,6,10": "top left button",
+            "2,7,8,10": "bottom left button",
+            "3,5,7,11": "top right button",
+            "4,6,8,11": "bottom right button",
+            "9": "beacon button"
+          }
+        }
+      ]
+    }
+  ]
+}
