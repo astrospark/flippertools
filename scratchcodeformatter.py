@@ -162,6 +162,9 @@ class ScratchCodeFormatter:
     def _get_parameter_value(block: dict, parameter: str, value: str) -> str:
         opcode = block['opcode']
 
+        if parameter == 'field_flippersound_sound-selector':
+            return json.loads(value)['name']
+
         if ScratchCodeFormatter._parameter_mappings is None:
             script_dir = os.path.abspath(os.path.dirname(__file__))
             mappings_json_path = os.path.join(script_dir, 'mappings.json')
