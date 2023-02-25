@@ -131,7 +131,7 @@ class ScratchCodeFormatter:
     @staticmethod
     def _get_mutation(target: dict, mutation: dict, inputs: dict):
         tokens = []
-        for argument_id in ScratchCodeFormatter._parse_argument_ids(mutation['argumentids']):
+        for argument_id in json.loads(mutation['argumentids']):
             if argument_id in inputs:
                 values = inputs[argument_id]
                 value = values[1]
@@ -199,19 +199,6 @@ class ScratchCodeFormatter:
                         return mapping_values[value]
 
         return value
-
-    @staticmethod
-    def _parse_argument_ids(argument_ids: str) -> list:
-        # example: ["|dzTU:a[54zuspL$r67$","GeG.80K5h$OI96s[vrXa"]
-
-        argument_ids = argument_ids[1:-1]  # remove square brackets
-
-        argument_id_list = []
-        for argument_id in argument_ids.split(','):
-            argument_id = argument_id[1:-1]  # remove quotation marks
-            argument_id_list.append(argument_id)
-
-        return argument_id_list
 
     _strings = None
 
