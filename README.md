@@ -14,7 +14,7 @@ Flipper is the internal code name for SPIKE, hence the name *flippertools*.
 
 ## Windows
 ### Running the Tools
-* If you don't already have Python installed, download and install the latest version from https://python.org/.
+* *flippertools* requires Python 3.10 or higher. If you don't already have Python installed, download and install the latest version from https://python.org/.
 * Download and extract the latest ZIP of *flippertools* from GitHub. https://github.com/astrospark/flippertools/archive/refs/heads/main.zip
 * Open `Command Prompt` and change to the directory where you extracted *flippertools*.  
   For example: `cd %USERPROFILE%\Downloads\flippertools-main`
@@ -38,7 +38,7 @@ Flipper is the internal code name for SPIKE, hence the name *flippertools*.
 
 ## macOS
 ### Running the Tools
-* If you don't already have Python installed, download and install the latest version from https://python.org/.
+* *flippertools* requires Python 3.10 or higher. If you don't already have Python installed, download and install the latest version from https://python.org/.
 * Download and extract the latest ZIP of *flippertools* from GitHub. https://github.com/astrospark/flippertools/archive/refs/heads/main.zip
 * Open `Terminal` and change to the directory where you extracted *flippertools*.  
   For example: `cd ~/Downloads/flippertools-main`
